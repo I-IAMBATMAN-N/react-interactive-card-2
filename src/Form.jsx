@@ -20,22 +20,24 @@ export default function Form({
       const incorrectFields = [];
       //
       const regExpNum = /[0-9]/;
-      const regExpStr = /[a-zA-Z]/;
+
+      const regExpStr = /[a-záéíóúàèìòùäëïöüěščřžýůú=+-.,]/;
+      const regExpStr2 = /[A-ZÁÉÍÓÚÀÈÌÒÙÄËÏÖÜĚŠČŘŽÝŮÚ=+-.,]/;
 
       //
       if (regExpNum.test(name)) {
         incorrectFields.push("Card name");
       }
-      if (regExpStr.test(number)) {
+      if (regExpStr.test(number) || regExpStr2.test(number)) {
         incorrectFields.push("Card number");
       }
-      if (regExpStr.test(month)) {
+      if (regExpStr.test(month) || regExpStr2.test(month)) {
         incorrectFields.push("Card month");
       }
-      if (regExpStr.test(year)) {
+      if (regExpStr.test(year) || regExpStr2.test(year)) {
         incorrectFields.push("Card year");
       }
-      if (regExpStr.test(cvc)) {
+      if (regExpStr.test(cvc) || regExpStr2.test(cvc)) {
         incorrectFields.push("Card cvc");
       }
 
