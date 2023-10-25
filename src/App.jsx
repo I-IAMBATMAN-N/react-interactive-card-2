@@ -24,10 +24,15 @@ function App() {
         </aside>
         <article className="form-side">
           <Form
+            name={name}
             setName={setName}
+            number={number}
             setNumber={setNumber}
+            month={month}
             setMonth={setMonth}
+            year={year}
             setYear={setYear}
+            cvc={cvc}
             setCvc={setCvc}
           />
         </article>

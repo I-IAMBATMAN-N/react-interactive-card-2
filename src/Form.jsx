@@ -1,17 +1,56 @@
 import { useState } from "react";
 
 export default function Form({
+  name,
   setName,
+  number,
   setNumber,
+  month,
   setMonth,
+  year,
   setYear,
+  cvc,
   setCvc,
 }) {
   const [isFinished, setIsFinished] = useState(false);
 
   function formHandler(e) {
+    //
+    function checkInputs() {
+      const incorrectFields = [];
+      //
+      const regExpNum = /[0-9]/;
+      const regExpStr = /[a-zA-Z]/;
+
+      //
+      if (regExpNum.test(name)) {
+        incorrectFields.push("Card name");
+      }
+      if (regExpStr.test(number)) {
+        incorrectFields.push("Card number");
+      }
+      if (regExpStr.test(month)) {
+        incorrectFields.push("Card month");
+      }
+      if (regExpStr.test(year)) {
+        incorrectFields.push("Card year");
+      }
+      if (regExpStr.test(cvc)) {
+        incorrectFields.push("Card cvc");
+      }
+
+      if (incorrectFields.length) {
+        alert(`Please fill corectly fields:\n${[...incorrectFields]}`);
+      } else if (!incorrectFields.length) {
+        //
+        setIsFinished((curr) => !curr);
+      }
+    }
+
+    //
     e.preventDefault();
-    setIsFinished((curr) => !curr);
+    //
+    checkInputs();
   }
   function nameHandler(e) {
     if (e.target.value.length > 0) {
@@ -61,7 +100,6 @@ export default function Form({
       return setCvc("000");
     }
   }
-
   //
   return (
     <>
@@ -101,7 +139,7 @@ export default function Form({
               </label>
               <div>
                 <input
-                  type="text"
+                  type="number"
                   className="exp-date-input input-month"
                   placeholder="MM"
                   min="0"
