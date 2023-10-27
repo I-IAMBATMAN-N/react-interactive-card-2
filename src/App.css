@@ -344,6 +344,19 @@ article form button :hover {
   border-radius: 50%;
   background-image: linear-gradient(hsl(278, 94%, 30%), hsl(249, 99%, 64%));
 }
+.attribution {
+  font-size: 11px;
+  text-align: center;
+
+  width: 100%;
+
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
 @media (max-width: 750px) {
   body {
     padding-top: 0;
