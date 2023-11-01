@@ -5,11 +5,11 @@ import Form from "./Form.jsx";
 import "./App.css";
 
 function App() {
-  const [name, setName] = useState("Jane Appleseed");
-  const [number, setNumber] = useState("0000 0000 0000 0000");
-  const [month, setMonth] = useState("00");
-  const [year, setYear] = useState("00");
-  const [cvc, setCvc] = useState("000");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [cvc, setCvc] = useState("");
   return (
     <>
       <div className="container">

@@ -14,6 +14,10 @@ export default function Form({
 }) {
   const [isFinished, setIsFinished] = useState(false);
 
+  const regExpNum = /[0-9]/;
+  const regExpStr = /[a-záéíóúàèìòùäëïöüěščřžýůú=+-.,]/;
+  const regExpStr2 = /[A-ZÁÉÍÓÚÀÈÌÒÙÄËÏÖÜĚŠČŘŽÝŮÚ=+-.,]/;
+
   function formHandler(e) {
     //
     function checkInputs() {
@@ -25,21 +29,21 @@ export default function Form({
       const regExpStr2 = /[A-ZÁÉÍÓÚÀÈÌÒÙÄËÏÖÜĚŠČŘŽÝŮÚ=+-.,]/;
 
       //
-      if (regExpNum.test(name)) {
-        incorrectFields.push("Card name");
-      }
-      if (regExpStr.test(number) || regExpStr2.test(number)) {
-        incorrectFields.push("Card number");
-      }
-      if (regExpStr.test(month) || regExpStr2.test(month)) {
-        incorrectFields.push("Card month");
-      }
-      if (regExpStr.test(year) || regExpStr2.test(year)) {
-        incorrectFields.push("Card year");
-      }
-      if (regExpStr.test(cvc) || regExpStr2.test(cvc)) {
-        incorrectFields.push("Card cvc");
-      }
+      // if (regExpNum.test(name)) {
+      //   incorrectFields.push("Card name");
+      // }
+      // if (regExpStr.test(number) || regExpStr2.test(number)) {
+      //   incorrectFields.push("Card number");
+      // }
+      // if (regExpStr.test(month) || regExpStr2.test(month)) {
+      //   incorrectFields.push("Card month");
+      // }
+      // if (regExpStr.test(year) || regExpStr2.test(year)) {
+      //   incorrectFields.push("Card year");
+      // }
+      // if (regExpStr.test(cvc) || regExpStr2.test(cvc)) {
+      //   incorrectFields.push("Card cvc");
+      // }
 
       if (incorrectFields.length) {
         alert(`Please fill corectly fields:\n${[...incorrectFields]}`);
@@ -55,13 +59,22 @@ export default function Form({
     checkInputs();
   }
   function nameHandler(e) {
-    if (e.target.value.length > 0) {
-      return setName(e.target.value);
-    } else {
-      return setName("Jane Appleseed");
+    if (regExpNum.test(e.target.value)) {
+      alert("Incorrect key in Card name");
+      return setName(e.target.value.slice(0, -2));
     }
+    if (e.target.value.length > -1) {
+      return setName(e.target.value);
+    }
+    // else {
+    //   return setName("Jane Appleseed");
+    // }
   }
   function numberHandler(e) {
+    if (regExpStr.test(e.target.value) || regExpStr2.test(e.target.value)) {
+      alert("Incorrect key in Card number");
+      return setNumber(e.target.value.slice(0, -2));
+    }
     let string = "";
     if (e.target.value.length > 0) {
       for (let i = 0; i < 19 - e.target.value.length; i++) {
@@ -76,31 +89,47 @@ export default function Form({
         e.target.value += " ";
       }
       // return setNumber(String(e.target.value) + string);
-      return setNumber(e.target.value + string);
-    } else {
-      return setNumber("0000 0000 0000 0000");
     }
+    return setNumber(e.target.value);
+    // else {
+    //   return setNumber("0000 0000 0000 0000");
+    // }
   }
   function monthHandler(e) {
+    if (regExpStr.test(e.target.value) || regExpStr2.test(e.target.value)) {
+      alert("Incorrect key in Card month");
+      return setMonth(e.target.value);
+    }
     if (e.target.value.length > 0) {
       return setMonth(e.target.value);
-    } else {
-      return setMonth("00");
     }
+    // else {
+    //   return setMonth("00");
+    // }
   }
   function yearHandler(e) {
+    if (regExpStr.test(e.target.value) || regExpStr2.test(e.target.value)) {
+      alert("Incorrect key in Card year");
+      return setYear(e.target.value);
+    }
     if (e.target.value.length > 0) {
       return setYear(e.target.value);
-    } else {
-      return setYear("00");
     }
+    // else {
+    //   return setYear("00");
+    // }
   }
   function cvcHandler(e) {
+    if (regExpStr.test(e.target.value) || regExpStr2.test(e.target.value)) {
+      alert("Incorrect key in Card cvc");
+      return setCvc(e.target.value);
+    }
     if (e.target.value.length > 0) {
       return setCvc(e.target.value);
-    } else {
-      return setCvc("000");
     }
+    // else {
+    //   return setCvc("000");
+    // }
   }
   //
   return (
@@ -123,6 +152,7 @@ export default function Form({
             placeholder="e.g. Jane Appleseed"
             maxLength="25"
             onChange={(e) => nameHandler(e)}
+            value={name}
           />
           <label htmlFor="#card-number-input">Card Number</label>
           <input
@@ -133,6 +163,7 @@ export default function Form({
             maxLength="19"
             placeholder="e.g. 1234 5678 9123 0000"
             onChange={(e) => numberHandler(e)}
+            value={number}
           />
           <section className="rest-inputs">
             <section className="exp-date-inputs">
@@ -147,6 +178,7 @@ export default function Form({
                   min="0"
                   max="12"
                   onChange={(e) => monthHandler(e)}
+                  value={month}
                 />
                 <input
                   type="number"
@@ -155,6 +187,7 @@ export default function Form({
                   min="0"
                   max="50"
                   onChange={(e) => yearHandler(e)}
+                  value={year}
                 />
               </div>
             </section>
@@ -167,6 +200,7 @@ export default function Form({
                 max="999"
                 maxLength="3"
                 onChange={(e) => cvcHandler(e)}
+                value={cvc}
               />
             </section>
           </section>
