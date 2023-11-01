@@ -197,7 +197,7 @@ aside .card {
   display: flex;
   justify-content: space-between;
 }
-.card-holder-name,
+.card-front-name,
 .expiration-date {
   display: inline-block;
   font-size: 1.2rem;
@@ -285,7 +285,7 @@ article form input::placeholder {
 }
 .rest-inputs {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   gap: 1.4rem;
 }
 .rest-inputs section {
