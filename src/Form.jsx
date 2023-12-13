@@ -21,6 +21,8 @@ export default function Form({
   function formHandler(e) {
     //
     function checkInputs() {
+      const inputs = document.querySelectorAll("input");
+
       const incorrectFields = [];
       //
       const regExpNum = /[0-9]/;
@@ -28,29 +30,43 @@ export default function Form({
       const regExpStr = /[a-záéíóúàèìòùäëïöüěščřžýůú=+-.,]/;
       const regExpStr2 = /[A-ZÁÉÍÓÚÀÈÌÒÙÄËÏÖÜĚŠČŘŽÝŮÚ=+-.,]/;
 
-      //
-      // if (regExpNum.test(name)) {
-      //   incorrectFields.push("Card name");
-      // }
-      // if (regExpStr.test(number) || regExpStr2.test(number)) {
-      //   incorrectFields.push("Card number");
-      // }
-      // if (regExpStr.test(month) || regExpStr2.test(month)) {
-      //   incorrectFields.push("Card month");
-      // }
-      // if (regExpStr.test(year) || regExpStr2.test(year)) {
-      //   incorrectFields.push("Card year");
-      // }
-      // if (regExpStr.test(cvc) || regExpStr2.test(cvc)) {
-      //   incorrectFields.push("Card cvc");
-      // }
-
-      if (incorrectFields.length) {
-        alert(`Please fill corectly fields:\n${[...incorrectFields]}`);
-      } else if (!incorrectFields.length) {
-        //
-        setIsFinished((curr) => !curr);
+      if (regExpNum.test(name)) {
+        incorrectFields.push("Card name");
       }
+      if (regExpStr.test(number) || regExpStr2.test(number)) {
+        incorrectFields.push("Card number");
+      }
+      if (regExpStr.test(month) || regExpStr2.test(month)) {
+        incorrectFields.push("Card month");
+      }
+      if (regExpStr.test(year) || regExpStr2.test(year)) {
+        incorrectFields.push("Card year");
+      }
+      if (regExpStr.test(cvc) || regExpStr2.test(cvc)) {
+        incorrectFields.push("Card cvc");
+      }
+
+      let bool = true;
+
+      inputs.forEach((input) => {
+        const min = input.getAttribute("minlength");
+
+        if (min) {
+          if (input.value.length < min) {
+            bool = false;
+          }
+        } else if (!min) {
+          if (!input.value.length) {
+            bool = false;
+          }
+        }
+      });
+
+      if (!bool) alert("Please fill inputs first");
+      if (incorrectFields.length)
+        alert(`Please fill corectly fields:\n${[...incorrectFields]}`);
+
+      if (bool & !incorrectFields.length) setIsFinished((curr) => !curr);
     }
 
     //
